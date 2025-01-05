@@ -1,0 +1,30 @@
+import { Component, Input } from '@angular/core';
+import { Character } from '../interfaces/character.interface';
+import { DbzService } from '../services/dbz.service';
+import { v4 as uuid } from 'uuid';
+
+console.log(uuid());
+
+@Component({
+  selector: 'dbz-main-page',
+  templateUrl: 'main-page.component.html'
+})
+
+export class MainPageComponent {
+
+  constructor(private dbzService: DbzService) {}
+
+  get characters(): Character[] {
+    return this.dbzService.getCharacters();
+  }
+
+  onDeleteCharacter(id: string) {
+    this.dbzService.deleteCharacterById(id);
+  }
+
+  onNewCharacter(character: Character) {
+    this.dbzService.addCharacter(character);
+  }
+
+}
+
